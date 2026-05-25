@@ -1,0 +1,34 @@
+{%extends 'learning_logs/base.html'%}
+
+{% block page_header %}
+    <h3>{{topic}}</h3>
+{% endblock page_header %}
+
+{%block content%}
+    
+    <a href="{%url 'learning_logs:new_entry' topic_id %}">Add a new entry</a>
+    
+    <ul>
+        {% for entry in entries %}
+            <div class="card mb-3">
+                <h4 class="card-header d-flex">
+                    {{entry.date_added|date:'M d, Y H:i'}}
+                    <small>
+                        <a href="{% url 'learning_logs:edit_entry' entry.id %}">edit entry</a>
+                    </small>
+                    <form action="{% url 'learning_logs:delete_entry' entry.id %}" method="POST" class="ml-auto">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('确定删除该条目吗？')">
+                            delete
+                        </button>
+                    </form>
+                </h4>
+                <div class="card-body">
+                    {{entry.text|linebreaks}}
+                </div>
+            </div>
+        {%empty%}
+            <li>There is no entry.</li>
+        {%endfor%}
+    </ul>
+{%endblock content%}

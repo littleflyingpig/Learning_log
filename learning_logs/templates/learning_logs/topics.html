@@ -1,0 +1,29 @@
+{%extends 'learning_logs/base.html'%}
+
+{% block page_header %}
+    <h1>Topics</h1>
+{% endblock page_header %}
+
+{% block content %}
+
+    <ul>
+        {% for topic in topics %}
+            <li><div class="d-flex">
+                <h3 class="mb-0">
+                    <a href="{% url 'learning_logs:entries' topic.id %}">{{ topic }}</a>
+                </h3>
+                
+                <form action="{% url 'learning_logs:delete_topic' topic.id %}" method="POST" class="ml-auto">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('删除主题会删除所有条目，确定吗？')">
+                        delete
+                    </button>
+                </form>
+            </div></li>
+        {%empty%}
+            <li>There is no topic.</li>
+        {%endfor%}
+    </ul>
+
+    <a href="{% url 'learning_logs:new_topic' %}">Add a new topic</a>
+{% endblock content %}
