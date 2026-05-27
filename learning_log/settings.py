@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'learning_logs',
     'users',
     #第三方应用
-    'bootstrap4',
+    'django_bootstrap5',
     #默认应用程序
     'django.contrib.admin',
     'django.contrib.auth',
