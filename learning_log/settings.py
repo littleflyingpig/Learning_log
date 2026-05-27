@@ -23,7 +23,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -153,5 +152,6 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # DEBUG：默认 False，只有明确设为 True 才开启
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-# ALLOWED_HOSTS：生产环境允许 Railway 域名
-ALLOWED_HOSTS = ['.railway.app', '*']  # 或者直接 ['*']
+# ===== 安全配置（Railway 部署）=====
+ALLOWED_HOSTS = ['.railway.app', 'learninglog-production-7e42.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://learninglog-production-7e42.up.railway.app', 'https://*.railway.app']
