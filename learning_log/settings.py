@@ -151,7 +151,7 @@ LOGIN_URL = 'users:login'
 # 部署到railway
 
 # SECRET_KEY：从环境变量读取
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # DEBUG：默认 False，只有明确设为 True 才开启
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
