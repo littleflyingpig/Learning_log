@@ -20,11 +20,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -149,9 +144,17 @@ LOGIN_URL = 'users:login'
 # SECRET_KEY：从环境变量读取
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
+IS_RAILWAY = os.environ.get('RAILWAY_ENVIRONMENT_NAME') == 'production'
 # DEBUG：默认 False，只有明确设为 True 才开启
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-# ===== 安全配置（Railway 部署）=====
-ALLOWED_HOSTS = ['.railway.app', 'learninglog-production-7e42.up.railway.app']
-CSRF_TRUSTED_ORIGINS = ['https://learninglog-production-7e42.up.railway.app', 'https://*.railway.app']
+if IS_RAILWAY:
+    #线上开发
+    DEBUG = False
+    ALLOWED_HOSTS = ['.railway.app', 'learninglog-production-7e42.up.railway.app']
+    CSRF_TRUSTED_ORIGINS = ['https://learninglog-production-7e42.up.railway.app', 'https://*.railway.app']
+else:
+    #本地开发
+    SECRET_KEY = '9mm)je_&90zav*3k^bgmq(0vpx@hmuow__chu01^&i!a%q6$7g'
+    DEBUG = True
+    ALLOWED_HOSTS = ['*'] 
+    CSRF_TRUSTED_ORIGINS = []
