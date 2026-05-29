@@ -12,7 +12,7 @@
         {% for entry in entries %}
             <div class="card mb-3">
                 <h4 class="card-header d-flex">
-                    {{entry.date_added|date:'M d, Y H:i'}}
+                    {{entry.date_added|localtime|date:'M d, Y H:i'}}
                     <small>
                         <a href="{% url 'learning_logs:edit_entry' entry.id %}">edit entry</a>
                     </small>
